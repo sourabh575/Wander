@@ -42,19 +42,5 @@ Wanderlust is a full-stack web application inspired by AirBnB, built using Node.
 
 ---
 
-## 📸 Screenshots (Optional but recommended)
 
-> _Add 2-3 screenshots or a GIF showing key pages like:_
-- Homepage
-- Listing page
-- Login/register
-- Review section
 
----
-
-## 🧪 Installation and Setup Instructions
-
-### 🔄 Clone the repo
-```bash
-git clone https://github.com/your-username/wanderlust-airbnb-clone.git
-cd wanderlust-airbnb-clone
