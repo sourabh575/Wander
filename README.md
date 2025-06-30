@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Wanderlust - Travel Stay Booking Platform
 
 Wanderlust is a full-stack web application that allows users to discover, list, and book unique stays around the world. Built with Node.js, Express, MongoDB, and EJS, it provides a seamless experience for both travelers and property owners.
@@ -109,3 +110,51 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 Your Name - [your-email@example.com](mailto:your-email@example.com)
 
 Project Link: [https://github.com/yourusername/wanderlust](https://github.com/yourusername/wanderlust)
+=======
+# wanderlust-airbnb-clone
+
+Wanderlust is a full-stack web application inspired by AirBnB, built using Node.js, Express, MongoDB, and vanilla frontend technologies. It allows users to explore travel accommodations, manage listings, and post reviews with full authentication and session support.
+
+---
+
+## 🔥 Features
+
+- 🏨 View all listings with image, price, and location
+- 📍 See detailed hotel/listing information
+- ➕ Add new listings (authenticated users only)
+- ✏️ Edit and delete your own listings
+- 💬 Add and delete reviews on listings
+- 🔐 Full user authentication (Sign up, Login, Logout)
+- 📦 Session and cookie-based authentication
+- 💬 Flash messages for user actions (e.g., "Listing added successfully")
+- 🧠 RESTful routing and MVC structure
+- 🌐 Responsive design using HTML, CSS, JavaScript
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**  
+- HTML  
+- CSS  
+- JavaScript  
+
+**Backend:**  
+- Node.js  
+- Express.js  
+
+**Database:**  
+- MongoDB  
+- Mongoose  
+
+**Authentication & Utilities:**  
+- Passport.js  
+- express-session  
+- connect-flash  
+- method-override  
+
+---
+
+
+
+>>>>>>> 54b4b8cf9b5ebbda1996d4314c0d879cd791a069
