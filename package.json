@@ -1,5 +1,8 @@
 {
-  "name": "majorpriject",
+  "engines": {
+    "node": "22.13.1"
+  },
+  "name": "majorproject",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -11,8 +14,10 @@
   "description": "",
   "dependencies": {
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "express": "^4.21.2",

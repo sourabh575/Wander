@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -5,7 +6,7 @@ const path = require("path");
 const methodoverride = require("method-override");
 const cors = require('cors');
 const ejsMate = require("ejs-mate");
-const ExpressError = require("./utlis/ExpressError.js");
+const ExpressError = require("./utils/ExpressError.js");
 
 //routes
 const listings = require("./routes/listing.js");
@@ -13,6 +14,7 @@ const reviews = require("./routes/review.js");
 const userrouter = require("./routes/user.js");
 
 const session = require("express-session");
+const MongoStore = require('connect-mongo').default;
 const flash = require("connect-flash");
 const passport = require('passport');
 const LocalStartegy = require('passport-local');
@@ -27,17 +29,34 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 
-main().
-then(()=>{console.log("connection successfully");
-})
-.catch(err => console.log(err));
- 
+
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+  try {
+    await mongoose.connect(process.env.ATLASDB_URL);
+    console.log("✅ MongoDB connected successfully");
+  } catch (err) {
+    console.error("❌ MongoDB connection error:", err);
+  }
 }
 
+main(); // <--- Call the function here
+
+
+const store = MongoStore.create({
+  mongoUrl: process.env.ATLASDB_URL,
+  crypto:{
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600 ,
+});
+
+store.on("error",function(e){
+  console.log("session store error",e);
+});
+
 const sessionOptions = {
-  secret :"my2123",
+  store: store,
+  secret :process.env.SECRET,
   resave:false,
  saveUninitialized: true, 
   cookie:{
