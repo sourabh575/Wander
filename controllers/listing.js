@@ -8,7 +8,7 @@ module.exports.index = async(req,res)=>{
 
   module.exports.rendernewform = (req, res) => {
     res.render("listings/new.ejs");
-  };
+  }; 
 
   module.exports.show = async(req,res)=>{
       const {id} = req.params;
@@ -22,7 +22,7 @@ module.exports.index = async(req,res)=>{
         .populate("owner");   
         if(!listing){
           req.flash("error","This listing does not exist!");
-          res.redirect("/listings");
+          return res.redirect("/listings");
         }
         res.render("listings/show.ejs",{listing});
       };
@@ -40,8 +40,12 @@ module.exports.index = async(req,res)=>{
           // if(!newlisting.location){
           //   throw new ExpressError(400,"locaton is missing");
           // } 
+          let url = req.file.path;
+          let filename = req.file.filename;
+          
          const newlisting = new Listing(req.body.listing);
          newlisting.owner = req.user.id;
+         newlisting.image = {url,filename}
         await newlisting.save()
         req.flash("success","new list added");
         res.redirect("/listings");
@@ -52,13 +56,21 @@ module.exports.index = async(req,res)=>{
                 const listing = await Listing.findById(id);
                if(!listing){
                 req.flash("error","This listing does not exist!");
-                res.redirect("/listings");
+                return res.redirect("/listings");
               }
                 res.render("listings/edit.ejs",{listing});
         };
         module.exports.updatelisting = async (req, res) => {
                 let { id } = req.params;
-                await Listing.findByIdAndUpdate(id,{ ...req.body.listing });
+               let listing = await Listing.findByIdAndUpdate(id,{ ...req.body.listing });
+               if(typeof req.file !== "undefined"){
+                  let url = req.file.path;
+             let filename = req.file.filename;
+                listing.image = {url,filename};
+                await listing.save();
+               }
+  
+
                 req.flash("success","listing updated");
                 res.redirect(`/listings/${id}`);
             };

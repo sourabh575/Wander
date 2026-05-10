@@ -6,17 +6,14 @@ const { saveRedirectUrl } = require('../middleware');
 const userController = require('../controllers/user');
 
 // GET signup page
-router.get("/signup", userController.renderSignupForm);
 
-// POST signup logic
-router.post("/signup", userController.signup);
+router.route("/signup")
+.get(userController.renderSignupForm)
+.post(userController.signup);
 
-// GET login page
-router.get("/login", userController.renderLoginForm);
-
-// POST login logic
-router.post(
-  "/login",
+router.route("/login")
+.get(userController.renderLoginForm)
+.post(
   saveRedirectUrl,
   passport.authenticate("local", {
     failureRedirect: '/login',
@@ -24,6 +21,7 @@ router.post(
   }),
   userController.login
 );
+
 
 // GET logout
 router.get("/logout", userController.logout);

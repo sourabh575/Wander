@@ -1,7 +1,6 @@
 const Listing = require("./models/listing");
-const review = require("./models/review.js");
 const Review = require("./models/review.js");
-const {listingSchema,reviewSchema} = require("./schema.js");
+const { listingSchema, reviewSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
 
 module.exports.isLoggedIn = (req, res, next) => {
@@ -20,15 +19,15 @@ module.exports.saveRedirectUrl = (req,res,next)=>{
   next();
 };
 
-module.exports.isOwner = async(req,res,next) =>{
-  let { id } = req.params;
-        let listing = await Listing.findById(id);
-        if( !listing.owner.equals(res.locals.currUser._id)){
-          req.flash("error","you are not owner of this listing");
-          return res.redirect(`/listings/${id}`);  
-        }
-      next();
-}
+module.exports.isOwner = async (req, res, next) => {
+  const { id } = req.params;
+  const listing = await Listing.findById(id);
+  if (!listing || !req.user || !listing.owner.equals(req.user._id)) {
+    req.flash("error", "You do not have permission to do that");
+    return res.redirect(`/listings/${id}`);
+  }
+  next();
+};
 
 module.exports.validateListing = (req,res,next)=>{
     let {error}=  listingSchema.validate(req.body);

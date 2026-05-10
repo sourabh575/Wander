@@ -8,6 +8,7 @@ const cors = require('cors');
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 
+
 //routes
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
@@ -17,7 +18,7 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require('passport');
-const LocalStartegy = require('passport-local');
+const LocalStrategy = require('passport-local');
 const User = require("./models/user.js");
 
 app.set("view engine", "ejs");
@@ -72,10 +73,10 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStartegy(User.authenticate()));
+passport.use(new LocalStrategy(User.authenticate()));
 
-passport.serializeUser(User.serializeUser());//it store user related informatin
-passport.deserializeUser(User.deserializeUser());//it remove user related informatin
+passport.serializeUser(User.serializeUser()); // it stores user-related information
+passport.deserializeUser(User.deserializeUser()); // it removes user-related information
 
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
@@ -95,9 +96,13 @@ app.use((req,res,next)=>{
 //   res.send(registeruser);
 // })
 
-  app.use("/listings",listings);
-  app.use("/listings/:id/reviews",reviews);
-  app.use("/",userrouter);
+  app.get('/', (req, res) => {
+    res.redirect('/listings');
+  });
+
+  app.use("/listings", listings);
+  app.use("/listings/:id/reviews", reviews);
+  app.use("/", userrouter);
 
 // app.get("/testlistings", async (req, res) => {
   //       let sampleListings = new Listing({
