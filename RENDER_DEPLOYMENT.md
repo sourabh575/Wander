@@ -21,7 +21,7 @@
 | **Environment** | `Node` |
 | **Region** | Choose closest to you (e.g., `Oregon`) |
 | **Branch** | `main` |
-| **Build Command** | `npm ci` |
+| **Build Command** | `npm ci && node -e "const mongoose = require('mongoose'); console.log('Mongoose dependency OK:', mongoose.version)"` |
 | **Start Command** | `node app.js` |
 
 4. Click **Create Web Service**
@@ -71,7 +71,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 3. Ensure all environment variables are set
 4. Make sure `node_modules/` is in `.gitignore`
 5. Check `.env` is in `.gitignore` (secrets not pushed)
-6. If a dependency file is missing from `node_modules`, use Render's **Clear build cache & deploy** option to force a clean install from `package-lock.json`
+6. If a dependency file is missing from `node_modules`, use Render's **Clear build cache & deploy** option to force a clean install from `package-lock.json`. Confirm the service uses the build command above; it checks that Mongoose loads before starting the app.
 
 ### Port Configuration:
 - Render automatically assigns a PORT (usually 3000 or higher)
