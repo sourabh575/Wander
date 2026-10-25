@@ -133,8 +133,15 @@ app.all("*",(req,res,next)=>{
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, "0.0.0.0", () => {
-    console.log("Server is listening on port " + PORT);
+console.log("DEBUG: Reached server startup");
+console.log("DEBUG: PORT =", process.env.PORT);
+
+const server = app.listen(PORT, "0.0.0.0", () => {
+    console.log("✅ Server is listening on port", server.address().port);
+});
+
+server.on("error", (err) => {
+    console.error("❌ Server startup error:", err);
 });
 }
 
