@@ -133,9 +133,9 @@ app.all("*",(req,res,next)=>{
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 8080;
 
-  app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log("Server is listening on port " + PORT);
-  });
+});
 }
 
 module.exports = app;
