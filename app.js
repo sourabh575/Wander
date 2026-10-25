@@ -129,8 +129,13 @@ app.all("*",(req,res,next)=>{
     res.status(statusCode).render("error.ejs",{message});  
     })
 
-    const PORT = process.env.PORT || 8080;
-    app.listen(PORT, () => {
-      console.log("server is listening on port " + PORT);
-    });
-    
+
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 8080;
+
+  app.listen(PORT, () => {
+    console.log("Server is listening on port " + PORT);
+  });
+}
+
+module.exports = app;
